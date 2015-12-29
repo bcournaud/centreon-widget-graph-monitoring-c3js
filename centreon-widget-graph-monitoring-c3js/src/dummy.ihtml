@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>Dummy</title>
+	<link href="../../Theme/Centreon-2/style.css" type="text/css"/>
+	<link href="../../Themes/Centreon-2/Color/blue_css.php" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<div id="Dummy">
+	<H4>Hello World !</H4>
+	<p>Nombre de services de la base : {$data.description}</p>
+        <span id="infoAjax"></span>
+	<script>
+	var widgetId = "{$widgetId}";
+	var autoRefresh = "{$autoRefresh}";
+	</script>
+	<script type="text/javascript" src="../../include/common/javascript/jquery/jquery.js"></script>
+	<script type="text/javascript" src="../../include/common/javascript/jquery/jquery-ui.js"></script>
+	<script type="text/javascript" src="../../include/common/javascript/widgetUtils.js"></script>
+	<script type="text/javascript" src="src/data_js.js"></script>
+	</div>
+</body>
+</html>

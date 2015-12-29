@@ -1,0 +1,25 @@
+<configs>
+        <title>Dummy</title>
+        <author>Centreon</author>
+        <email>contact@centreon.com</email>
+        <website>http://www.centreon.com</website>
+        <description>Dummy Widget</description>
+        <version>1.0</version>
+        <keywords>centreon, widget, dummy</keywords>
+        <screenshot></screenshot>
+        <thumbnail>./widgets/Dummy/resources/logo1.png</thumbnail>
+        <url>./widgets/Dummy/index.php</url>
+        <autoRefresh>10</autoRefresh>
+	<preferences>
+              <preference label="text preference" name="text preference" defaultValue="default value" type="text"/>
+              <preference label="boolean preference" name="boolean preference" defaultValue="1" type="boolean"/>
+              <preference label="date" name="date" defaultValue="" type="date"/>
+              <preference label="host preference" name="host preference" defaultValue="" type="host"/>
+              <preference label="list preference" name="list preference" defaultValue="none" type="list">
+                      <option value="all" label="all"/>
+                      <option value="none" label="none"/>
+              </preference>
+              <preference label="range preference" name="range preference" defaultValue="5" type="range" min="0" max="50" step="5"/>
+              <preference label="host search" name="host search" defaultValue="notlike _Module_%" type="compare"/>
+      </preferences>
+</configs>
