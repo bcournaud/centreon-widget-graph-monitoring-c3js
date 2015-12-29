@@ -33,11 +33,14 @@
  *
  */
 
+ini_set("display_errors", "Off");
+
 require_once "../require.php";
 require_once $centreon_path . 'www/class/centreon.class.php';
 require_once $centreon_path . 'www/class/centreonSession.class.php';
 require_once $centreon_path . 'www/class/centreonDB.class.php';
 require_once $centreon_path . 'www/class/centreonWidget.class.php';
+
 require_once "/usr/share/centreon/www/widgets/require.php";
 require_once "/etc/centreon/centreon.conf.php";
 require_once $centreon_path . 'www/class/centreonDuration.class.php';
@@ -69,17 +72,53 @@ try {
     if (isset($preferences['refresh_interval'])) {
         $autoRefresh = $preferences['refresh_interval'];
     }
+
+    /*
+     * Prepare URL
+     */
+    if (isset($preferences['service']) && $preferences['service']) {
+        $tab = split("-", $preferences['service']);
+
+        $host_name = "";
+        $service_description = "";
+
+        $res = $db2->query("SELECT host_name, service_description
+            FROM index_data
+            WHERE host_id = ".$db->escape($tab[0])."
+            AND service_id = ".$db->escape($tab[1])."
+            LIMIT 1");
+        if ($res->numRows()) {
+            $row = $res->fetchRow();
+            $host_name = $row["host_name"];
+            $service_description = $row["service_description"]; 
+        }
+    }
+    
+    /*
+     * Check ACL
+     */
+    $acl = 1;
+    if (isset($tab[0]) && isset($tab[1]) && $centreon->user->admin == 0) {
+        $query = "SELECT host_id FROM centreon_acl WHERE host_id = ".$db->escape($tab[0])." AND service_id = ".$db->escape($tab[1])." AND group_id IN (".$grouplistStr.")";
+        $res = $db2->query($query);
+        if (!$res->numRows()) {
+            $acl = 0;
+        }
+    }
 } catch (Exception $e) {
     echo $e->getMessage() . "<br/>";
     exit;
 }
 
+
+
 //configure smarty
 
-$path = $centreon_path . "www/widgets/Dummy/src/";
+$path = $centreon_path . "www/widgets/centreon-widget-graph-monitoring-c3js/src/";
 $template = new Smarty();
 $template = initSmartyTplForPopup($path, $template, "./", $centreon_path);
 
+/*
 $data = array();
 
 $query="SELECT COUNT(description) as description
@@ -90,10 +129,14 @@ $res = $db->query($query);
 while ($row = $res->fetchRow()) {
   $data = $row;
 }
-
-
+*/
+$tepmlate-assign('service', $preferences['service']);
 $template->assign('widgetId', $widgetId);
 $template->assign('autoRefresh', $autoRefresh);
-$template->assign('data', $data);
+$tepmlate->assign('acl', $acl);
+$template->assign('host_name', $host_name);
+$template->assign('service_description', $service_description);
+//$template->assign('data', $data);
 $template->display('dummy.ihtml');
+
 ?>

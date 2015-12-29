@@ -6,9 +6,20 @@
 </head>
 <body>
 	<div id="Dummy">
-	<H4>Hello World !</H4>
-	<p>Nombre de services de la base : {$data.description}</p>
-        <span id="infoAjax"></span>
+	<H4></H4>
+	<?php 
+	if ({$data.acl} == 1) {
+		if (isset({$data.service})) {
+			print "<h3 style='text-align:center'>" . {$data.host_name} . " - " . {$data.service_description} . "</h3>";
+			print "<div id='chart4'></div>";
+		} else {
+			print "<center><div class='update' style='text-align:center;width:350px;'>"._("Please select a resource first")."</div></center>";
+		} 
+	} else {
+		print "<center><div class='update' style='text-align:center;width:350px;'>"._("You are not allowed to reach this graph")."</div></center>";
+	}
+	?>
+	    <span id="infoAjax"></span>
 	<script>
 	var widgetId = "{$widgetId}";
 	var autoRefresh = "{$autoRefresh}";
