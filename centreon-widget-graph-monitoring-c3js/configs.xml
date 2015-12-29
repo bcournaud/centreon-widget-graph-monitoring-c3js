@@ -1,25 +1,36 @@
 <configs>
-        <title>Dummy</title>
+        <title>Centreon Widget Graph Monitoring using C3JS</title>
         <author>Centreon</author>
         <email>contact@centreon.com</email>
         <website>http://www.centreon.com</website>
-        <description>Dummy Widget</description>
+        <description>Graph widget using c3js library</description>
         <version>1.0</version>
-        <keywords>centreon, widget, dummy</keywords>
+        <keywords>centreon, widget, graph, c3js</keywords>
         <screenshot></screenshot>
-        <thumbnail>./widgets/Dummy/resources/logo1.png</thumbnail>
-        <url>./widgets/Dummy/index.php</url>
+        <thumbnail>./widgets/centreon-widget-graph-monitoring-c3js/resources/centreon-logo.png</thumbnail>
+        <url>./widgets/centreon-widget-graph-monitoring-c3js/index.php</url>
         <autoRefresh>10</autoRefresh>
-	<preferences>
-              <preference label="text preference" name="text preference" defaultValue="default value" type="text"/>
-              <preference label="boolean preference" name="boolean preference" defaultValue="1" type="boolean"/>
-              <preference label="date" name="date" defaultValue="" type="date"/>
-              <preference label="host preference" name="host preference" defaultValue="" type="host"/>
-              <preference label="list preference" name="list preference" defaultValue="none" type="list">
-                      <option value="all" label="all"/>
-                      <option value="none" label="none"/>
-              </preference>
-              <preference label="range preference" name="range preference" defaultValue="5" type="range" min="0" max="50" step="5"/>
-              <preference label="host search" name="host search" defaultValue="notlike _Module_%" type="compare"/>
-      </preferences>
+	<preferences>          
+          <preference label="Service" name="service" defaultValue="" type="service" header="Resource"/>
+          <preference label="Graph period" name="graph_period" type="list" header="Filter">
+        <option value="10800" label="Last 3 hours"/>
+        <option value="21600" label="Last 6 hours"/>
+        <option value="43200" label="Last 12 hours"/>
+        <option value="86400" label="Last 24 hours"/>
+        <option value="172800" label="Last 2 days"/>
+        <option value="259200" label="Last 3 days"/>
+        <option value="302400" label="Last 4 days"/>
+        <option value="432000" label="Last 5 days"/>
+        <option value="604800" label="Last 7 days"/>
+        <option value="1209600" label="Last 14 days"/>
+        <option value="2419200" label="Last 28 days"/>
+        <option value="2592000" label="Last 30 days"/>
+        <option value="2678400" label="Last 31 days"/>
+        <option value="5184000" label="Last 2 months"/>
+        <option value="10368000" label="Last 4 months"/>
+        <option value="15552000" label="Last 6 months"/>
+        <option value="31104000" label="Last year"/>
+      </preference>
+      <preference label="Refresh Interval (seconds)" name="refresh_interval" defaultValue="60" type="text" header="Misc"/>      
+        </preferences>
 </configs>
